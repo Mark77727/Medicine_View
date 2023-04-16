@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="{% static 'registry/css/styles.css' %}">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+<div class="main-page">
+    <div class="left_bar">
+        <div class="flex-shrink-0 p-3 bg-white" style="width: 280px;">
+            <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
+              <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+              <span class="fs-5 fw-semibold">Medicine View</span>
+            </a>
+            <ul class="list-unstyled ps-0">
+              <li class="mb-1">
+                <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+                  Учреждение
+                </button>
+                <div class="collapse show" id="home-collapse">
+                    <p>Наименование учреждения необходимо вводить точно также как представлено в реестре на сайте</p>
+                  <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                      <form method="get">
+                          <div>
+                            <input type="text" id="id_hospital_name" name="hospital_name">
+                            <label for="id_hospital_name" style="margin: 5px 0px 5px 0px">Наименование</label>
+                          </div>
+                          <button>Найти</button>
+                      </form>
+                  </ul>
+                </div>
+              </li>
+              <li class="mb-1">
+                <button class="btn btn-toggle align-items-center rounded" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="true">
+                  Дата
+                </button>
+                <div class="collapse show" id="dashboard-collapse" style="">
+                  <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                      <form method="get">
+                           <input type="text" id="id_arrive_data" name="arrive_data" value="">
+                            <label for="id_arrive_data" style="margin: 5px 0px 5px 0px">Дата поступления</label>
+
+                          <input type="text" id="id_sent_hospital_data" name="sent_hospital_data" value="">
+                            <label for="id_sent_hospital_data" style="margin: 5px 0px 5px 0px">Дата отправки в ФУ</label>
+
+                          <input type="text" id="id_sent_fin_data" name="sent_fin_data" value="">
+                            <label for="id_sent_fin_data" style="margin: 5px 0px 5px 0px">Дата согласования</label>
+
+                          <input type="text" id="id_sent_correct_data" name="sent_correct_data" value="">
+                            <label for="id_sent_correct_data" style="margin: 5px 15px 5px 0px">Дата возврата на доработку</label>
+                          <button>Найти</button>
+                      </form>
+                  </ul>
+                </div>
+              </li>
+
+
+              <li class="border-top my-3"></li>
+              <li class="mb-1">
+                <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
+                  Дополнительные фильтры
+                </button>
+                <div class="collapse" id="account-collapse">
+                  <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+
+                          <form method="get">
+                          <div class="celect_page">
+
+
+                          <div class="select_1">
+                          <label for="id_p9" style="margin: 10px">п.9:</label>
+                          <select name="p9" id="id_p9">
+                              <option value="unknown" selected="">Все</option>
+                              <option value="true">Да</option>
+                              <option value="false">Нет</option>
+                          </select>
+                          </div>
+
+                          <div class="select_2">
+                          <label for="id_repair" style="margin: 10px">Ремонт:</label>
+                          <select name="repair" id="id_repair">
+                              <option value="unknown" selected="">Все</option>
+                              <option value="true">Да</option>
+                              <option value="false">Нет</option>
+                          </select>
+                          </div>
+                          <div class="select_3">
+
+                          <label for="id_develop_DED" style="margin: 10px">ПСД:</label>
+                          <select name="develop_DED" id="id_develop_DED">
+                              <option value="unknown" selected="">Все</option>
+                              <option value="true">Да</option>
+                              <option value="false">Нет</option>
+                          </select>
+                          </div>
+                          </div>
+                          <button>Найти</button>
+
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+    </div>
+    <div class="main-bar">
+         <div class="table-responsive-sm">
+                <table class="table table-bordered">
+                    <tr>
+                      <th scope="col">Больница</th>
+                      <th scope="col">Закупка</th>
+                      <th scope="col">Цена</th>
+                      <th scope="col">Поступление</th>
+                      <th scope="col">Отправлено в Финуправление</th>
+                      <th scope="col">Согласовано</th>
+                      <th scope="col">Возврат на доработку</th>
+                      <th scope="col">Комментарий</th>
+                      <th scope="col">п.9</th>
+                      <th scope="col">Ремонт</th>
+                      <th scope="col">ПСД</th>
+                      <th scope="col">Скан</th>
+                    </tr>
+                 {% for hospital in hospital %}
+                  <tbody>
+                    <tr>
+                      <td>{{hospital.hospital_name}}</td>
+                      <td>{{hospital.name}}</td>
+                      <td>{{hospital.cost}}</td>
+                      <td>{{hospital.arrive_data|date:"d.m.Y" }}</td>
+                      <td>{{hospital.sent_fin_data|date:"d.m.Y"}}</td>
+                      <td>{{hospital.sent_hospital_data|date:"d.m.Y"}}</td>
+                      <td>{{hospital.sent_correct_data|date:"d.m.Y"}}</td>
+                      <td>{{hospital.comment_text}}</td>
+                      <td>{{hospital.p9}}</td>
+                      <td>{{hospital.repair}}</td>
+                      <td>{{hospital.develop_DED}}</td>
+                      <td><a href="{{ hospital.PDF_scan.url }}" download>Скачать</a></td>
+                    </tr>
+                  </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+    </div>
+</div>
+
+
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</html>
